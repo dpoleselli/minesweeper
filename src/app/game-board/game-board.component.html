@@ -1,0 +1,9 @@
+<div class="board">
+    <table>
+        <tr *ngFor="let y of yArray">
+            <td *ngFor="let x of xArray">
+                <app-tile [value]="grid[x][y]" (explode)="exploded = true"></app-tile>
+            </td>
+        </tr>
+    </table>
+</div>
