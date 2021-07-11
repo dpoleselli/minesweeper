@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { StateChangeService } from '../state-change.service';
 
 @Component({
   selector: 'app-tile',
@@ -7,18 +8,22 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class TileComponent implements OnInit {
   @Input() value!: number;
-  @Output() explode = new EventEmitter<undefined>();
 
+  gameOver = false;
   clicked = false;
   rightClicked: string | null = null;
 
-  constructor() {}
+  constructor(public stateChange: StateChangeService) {
+    this.stateChange.explode.subscribe(() => {
+      this.gameOver = true;
+    });
+  }
 
   ngOnInit(): void {}
 
   tileClicked() {
     if (this.value == -1) {
-      this.explode.emit();
+      this.stateChange.explode.next();
     }
     this.clicked = !this.rightClicked && true;
     //TODO: show any other nearby 0's and their neighbors

@@ -1,50 +1,13 @@
-<style>
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card {
-    border-radius: 4px;
-    border: 1px solid rgb(66, 66, 66);
-    background-color: #d3d3d3;
-    height: 400px;
-    width: 400px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    text-align: center;
-  }
-</style>
-
 <div class="toolbar">
   <span style="text-align: center;">Minesweeper</span>
 </div>
 
 <div class="content" role="main">
-  <div *ngIf="showGame && width && height; else elseBlock">
-    <app-game-board [width]="width" [height]="height"></app-game-board>
+  <div *ngIf="showGame && width && height && mines; else elseBlock">
+    <app-game-board [width]="width" [height]="height" [mines]="mines"></app-game-board>
   </div>
   <ng-template #elseBlock>
-    <div class="card">
-      <app-new-game (gameSelected)="selected($event)"></app-new-game>
-    </div>
+    <app-new-game (gameSelected)="selected($event)"></app-new-game>
   </ng-template>
 
 

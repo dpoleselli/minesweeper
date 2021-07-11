@@ -13,9 +13,10 @@ export class NewGameComponent implements OnInit {
   @Output() gameSelected = new EventEmitter<{
     width: number;
     height: number;
+    mines: number;
   }>();
 
-  click(width: number, height: number) {
-    this.gameSelected.emit({ width, height });
+  click(width: number, height: number, mines: number) {
+    this.gameSelected.emit({ width, height, mines });
   }
 }

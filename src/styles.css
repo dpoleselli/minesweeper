@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.td-button {
+  border-radius: 4px;
+  border: 1px solid rgb(66, 66, 66);
+  background-color: #d3d3d3;
+  height: 20px;
+  width: 75px;
+  margin: 0 8px 16px;
+  padding: 16px;
+  cursor: pointer;
+}

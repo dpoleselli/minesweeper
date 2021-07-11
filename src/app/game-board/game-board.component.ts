@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { GameOverComponent } from '../game-over/game-over.component';
 import { MineGeneratorService } from '../mine-generator.service';
+import { StateChangeService } from '../state-change.service';
 
 @Component({
   selector: 'app-game-board',
@@ -9,17 +12,32 @@ import { MineGeneratorService } from '../mine-generator.service';
 })
 export class GameBoardComponent implements OnInit {
   grid: number[][] = [];
-  //TODO: display some overlay showing "you lost" and option to start a new game
-  //also show how the board actually looked
   exploded = false;
-  constructor(private service: MineGeneratorService) {}
+  constructor(
+    private generator: MineGeneratorService,
+    public stateChange: StateChangeService,
+    public dialog: MatDialog
+  ) {
+    this.stateChange.explode.subscribe(() => {
+      this.dialog.open(GameOverComponent, {
+        hasBackdrop: false,
+      });
+    });
+
+    //TODO: generate a new board
+    //re-hide all of the tiles by subscribing the tiles to "retry"
+    this.stateChange.retry.subscribe(() => {
+      this.grid = this.generator.generate(this.width, this.height, this.mines);
+    });
+  }
 
   ngOnInit(): void {
-    this.grid = this.service.generate(this.width, this.height, 5);
+    this.grid = this.generator.generate(this.width, this.height, this.mines);
   }
 
   @Input() width!: number;
   @Input() height!: number;
+  @Input() mines!: number;
 
   get xArray() {
     return Array(this.width)

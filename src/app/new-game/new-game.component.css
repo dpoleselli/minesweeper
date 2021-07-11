@@ -3,13 +3,13 @@
   margin-right: auto;
 }
 
-td {
+.card {
   border-radius: 4px;
   border: 1px solid rgb(66, 66, 66);
   background-color: #d3d3d3;
-  height: 20px;
-  width: 75px;
+  height: 400px;
+  width: 400px;
   margin: 0 8px 16px;
   padding: 16px;
-  cursor: pointer;
+  text-align: center;
 }

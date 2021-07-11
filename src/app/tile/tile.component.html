@@ -1,7 +1,7 @@
-<div (click)="tileClicked()" (contextmenu)="rightClick($event)" class="fit"
-    [ngStyle]="{'cursor': clicked || rightClicked ? 'default' : 'pointer'}">
+<div (click)="tileClicked()" (contextmenu)="rightClick($event)" class="fit" [ngStyle]="{'cursor': clicked || rightClicked ? 'default' : 'pointer', 
+    'background-color': clicked ? '#bfbdbd' : '#737272'}">
     <div class="center">
         <!-- TODO: show a mine icon if the value is -1 -->
-        {{rightClicked ? rightClicked : clicked ? value : ''}}
+        {{rightClicked ? rightClicked : clicked || gameOver ? value : ''}}
     </div>
 </div>
