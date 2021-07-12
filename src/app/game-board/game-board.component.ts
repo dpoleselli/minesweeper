@@ -21,16 +21,17 @@ export class GameBoardComponent implements OnInit {
     this.stateChange.explode.subscribe(() => {
       this.dialog.open(GameOverComponent, {
         hasBackdrop: false,
+        panelClass: 'dialog-container-custom',
       });
     });
 
-    //TODO: generate a new board
-    //re-hide all of the tiles by subscribing the tiles to "retry"
     this.stateChange.retry.subscribe(() => {
+      this.grid = this.grid.splice(0, this.grid.length);
       this.grid = this.generator.generate(this.width, this.height, this.mines);
     });
   }
 
+  //TODO: handle winning
   ngOnInit(): void {
     this.grid = this.generator.generate(this.width, this.height, this.mines);
   }

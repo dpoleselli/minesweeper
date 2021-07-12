@@ -2,7 +2,7 @@
     <table>
         <tr *ngFor="let y of yArray">
             <td *ngFor="let x of xArray">
-                <app-tile [value]="grid[x][y]" (explode)="exploded = true"></app-tile>
+                <app-tile [value]="grid[y][x]" [coordinates]="[y,x]" (explode)="exploded = true"></app-tile>
             </td>
         </tr>
     </table>

@@ -9,4 +9,5 @@ export class StateChangeService {
   explode = new Subject<undefined>();
   showMenu = new Subject<undefined>();
   retry = new Subject<undefined>();
+  zeroClicked = new Subject<number[]>();
 }

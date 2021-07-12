@@ -8,6 +8,7 @@ import { StateChangeService } from '../state-change.service';
 })
 export class TileComponent implements OnInit {
   @Input() value!: number;
+  @Input() coordinates!: number[];
 
   gameOver = false;
   clicked = false;
@@ -17,6 +18,31 @@ export class TileComponent implements OnInit {
     this.stateChange.explode.subscribe(() => {
       this.gameOver = true;
     });
+
+    this.stateChange.retry.subscribe(() => {
+      this.gameOver = false;
+      this.clicked = false;
+      this.rightClicked = null;
+    });
+
+    this.stateChange.zeroClicked.subscribe((zero) => {
+      const y = zero[0];
+      const x = zero[1];
+      const myY = this.coordinates[0];
+      const myX = this.coordinates[1];
+      if (
+        !this.clicked &&
+        !this.rightClicked &&
+        (Math.abs(y - myY) == 0 || Math.abs(y - myY) == 1) &&
+        (Math.abs(x - myX) == 0 || Math.abs(x - myX) == 1) &&
+        this.value != -1
+      ) {
+        this.clicked = true;
+        if (this.value == 0) {
+          this.stateChange.zeroClicked.next(this.coordinates);
+        }
+      }
+    });
   }
 
   ngOnInit(): void {}
@@ -24,16 +50,17 @@ export class TileComponent implements OnInit {
   tileClicked() {
     if (this.value == -1) {
       this.stateChange.explode.next();
+    } else if (this.value == 0) {
+      this.stateChange.zeroClicked.next(this.coordinates);
     }
     this.clicked = !this.rightClicked && true;
-    //TODO: show any other nearby 0's and their neighbors
   }
 
   rightClick(ev: Event) {
     ev.preventDefault();
     this.rightClicked = this.clicked
       ? null
-      : this.rightClicked == 'M' //TODO: show a flag to distinguish a marked mine
+      : this.rightClicked == 'M'
       ? '?'
       : this.rightClicked == '?'
       ? null

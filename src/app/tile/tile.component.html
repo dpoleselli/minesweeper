@@ -1,7 +1,12 @@
-<div (click)="tileClicked()" (contextmenu)="rightClick($event)" class="fit" [ngStyle]="{'cursor': clicked || rightClicked ? 'default' : 'pointer', 
+<div (click)="tileClicked()" (contextmenu)="rightClick($event)" class="fit" [ngStyle]="{'cursor': clicked || rightClicked || gameOver ? 'default' : 'pointer', 
     'background-color': clicked ? '#bfbdbd' : '#737272'}">
     <div class="center">
-        <!-- TODO: show a mine icon if the value is -1 -->
-        {{rightClicked ? rightClicked : clicked || gameOver ? value : ''}}
+        <mat-icon *ngIf="rightClicked; else elif">{{rightClicked == 'M' ? "flag" : "help_center"}}</mat-icon>
+        <ng-template #elif>
+            <mat-icon *ngIf="value == -1 && gameOver; else display">coronavirus</mat-icon>
+            <ng-template #display>
+                {{clicked || gameOver ? value : ''}}
+            </ng-template>
+        </ng-template>
     </div>
 </div>

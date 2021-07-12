@@ -48,7 +48,7 @@ export class MineGeneratorService {
         let locations = [
           [-1, -1],
           [0, -1],
-          [1, 1],
+          [1, -1],
           [-1, 0],
           [1, 0],
           [-1, 1],

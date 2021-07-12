@@ -8,6 +8,8 @@ import { GameBoardComponent } from './game-board/game-board.component';
 import { TileComponent } from './tile/tile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GameOverComponent } from './game-over/game-over.component';
+import { GameMenuComponent } from './game-menu/game-menu.component';
+import { TimerComponent } from './timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { GameOverComponent } from './game-over/game-over.component';
     GameBoardComponent,
     TileComponent,
     GameOverComponent,
+    GameMenuComponent,
+    TimerComponent,
   ],
   imports: [BrowserModule, BrowserAnimationsModule, MaterialModule],
   providers: [],

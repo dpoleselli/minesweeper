@@ -1,10 +1,12 @@
 <div class="toolbar">
-  <span style="text-align: center;">Minesweeper</span>
+  <span style="text-align: center;">Virus-sweeper</span>
 </div>
 
 <div class="content" role="main">
   <div *ngIf="showGame && width && height && mines; else elseBlock">
+    <app-timer></app-timer>
     <app-game-board [width]="width" [height]="height" [mines]="mines"></app-game-board>
+    <app-game-menu></app-game-menu>
   </div>
   <ng-template #elseBlock>
     <app-new-game (gameSelected)="selected($event)"></app-new-game>
