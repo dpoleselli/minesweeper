@@ -18,6 +18,10 @@ export class TimerComponent implements OnInit {
       clearInterval(this.interval);
     });
 
+    this.stateChange.victory.subscribe(() => {
+      clearInterval(this.interval);
+    });
+
     this.stateChange.retry.subscribe(() => {
       this.time = 0;
       this.interval = setInterval(() => {

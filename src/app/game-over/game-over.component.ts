@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { StateChangeService } from '../state-change.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-game-over',
@@ -7,7 +8,10 @@ import { StateChangeService } from '../state-change.service';
   styleUrls: ['./game-over.component.css'],
 })
 export class GameOverComponent implements OnInit {
-  constructor(public stateChange: StateChangeService) {}
+  constructor(
+    public stateChange: StateChangeService,
+    @Inject(MAT_DIALOG_DATA) public data: { victory: boolean }
+  ) {}
 
   ngOnInit(): void {}
 

@@ -1,8 +1,8 @@
-<h1 mat-dialog-title style="text-align: center;">Game Over</h1>
+<h1 mat-dialog-title style="text-align: center;">{{data.victory ? 'Congratulations!' : 'Game Over'}}</h1>
 <div mat-dialog-actions>
     <table>
         <tr>
-            <td style="text-align: center;" class="td-button" (click)="retry()" mat-dialog-close>Retry</td>
+            <td style="text-align: center;" class="td-button" (click)="retry()" mat-dialog-close>New Game</td>
             <td style="text-align: center;" class="td-button" (click)="menu()" mat-dialog-close>Menu</td>
         </tr>
     </table>

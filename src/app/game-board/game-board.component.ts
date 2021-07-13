@@ -12,6 +12,7 @@ import { StateChangeService } from '../state-change.service';
 })
 export class GameBoardComponent implements OnInit {
   grid: number[][] = [];
+  correct = 0;
   exploded = false;
   constructor(
     private generator: MineGeneratorService,
@@ -21,17 +22,17 @@ export class GameBoardComponent implements OnInit {
     this.stateChange.explode.subscribe(() => {
       this.dialog.open(GameOverComponent, {
         hasBackdrop: false,
-        panelClass: 'dialog-container-custom',
+        data: { victory: false },
       });
     });
 
     this.stateChange.retry.subscribe(() => {
       this.grid = this.grid.splice(0, this.grid.length);
       this.grid = this.generator.generate(this.width, this.height, this.mines);
+      this.correct = 0;
     });
   }
 
-  //TODO: handle winning
   ngOnInit(): void {
     this.grid = this.generator.generate(this.width, this.height, this.mines);
   }
@@ -39,6 +40,19 @@ export class GameBoardComponent implements OnInit {
   @Input() width!: number;
   @Input() height!: number;
   @Input() mines!: number;
+
+  addCorrect(correct: boolean) {
+    this.correct += correct ? 1 : -1;
+
+    if (this.correct == this.mines) {
+      this.stateChange.victory.next();
+
+      this.dialog.open(GameOverComponent, {
+        hasBackdrop: false,
+        data: { victory: true },
+      });
+    }
+  }
 
   get xArray() {
     return Array(this.width)

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { StateChangeService } from '../state-change.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { StateChangeService } from '../state-change.service';
 export class TileComponent implements OnInit {
   @Input() value!: number;
   @Input() coordinates!: number[];
+  @Output() correct = new EventEmitter<boolean>();
 
   gameOver = false;
   clicked = false;
@@ -53,6 +54,7 @@ export class TileComponent implements OnInit {
     } else if (this.value == 0) {
       this.stateChange.zeroClicked.next(this.coordinates);
     }
+
     this.clicked = !this.rightClicked && true;
   }
 
@@ -65,5 +67,9 @@ export class TileComponent implements OnInit {
       : this.rightClicked == '?'
       ? null
       : 'M';
+
+    if (this.rightClicked && this.value == -1) {
+      this.correct.emit(this.rightClicked == 'M');
+    }
   }
 }
