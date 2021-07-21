@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { StateChangeService } from '../services/state-change.service';
 
 @Component({
@@ -6,10 +6,8 @@ import { StateChangeService } from '../services/state-change.service';
   templateUrl: './game-menu.component.html',
   styleUrls: ['./game-menu.component.css'],
 })
-export class GameMenuComponent implements OnInit {
+export class GameMenuComponent {
   constructor(public stateChange: StateChangeService) {}
-
-  ngOnInit(): void {}
 
   startOver() {
     this.stateChange.retry.next();

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { StateChangeService } from './services/state-change.service';
 
 @Component({
@@ -6,11 +7,12 @@ import { StateChangeService } from './services/state-change.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   showGame = false;
   width: number | null = null;
   height: number | null = null;
   mines: number | null = null;
+  subscription: Subscription;
 
   selected(dimensions: { width: number; height: number; mines: number }) {
     this.width = dimensions.width;
@@ -20,11 +22,15 @@ export class AppComponent {
   }
 
   constructor(public stateChange: StateChangeService) {
-    this.stateChange.showMenu.subscribe(() => {
+    this.subscription = this.stateChange.showMenu.subscribe(() => {
       this.showGame = false;
       this.width = null;
       this.height = null;
       this.mines = null;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

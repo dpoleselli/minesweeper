@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { GameOverComponent } from '../game-over/game-over.component';
 import { MineGeneratorService } from '../services/mine-generator.service';
 import { StateChangeService } from '../services/state-change.service';
@@ -10,31 +11,47 @@ import { StateChangeService } from '../services/state-change.service';
   styleUrls: ['./game-board.component.css'],
   providers: [MineGeneratorService],
 })
-export class GameBoardComponent implements OnInit {
+export class GameBoardComponent implements OnInit, OnDestroy {
   grid: number[][] = [];
   correct = 0;
   exploded = false;
+  subscriptions: Subscription[] = [];
+
   constructor(
     private generator: MineGeneratorService,
     public stateChange: StateChangeService,
     public dialog: MatDialog
   ) {
-    this.stateChange.explode.subscribe(() => {
-      this.dialog.open(GameOverComponent, {
-        hasBackdrop: false,
-        data: { victory: false },
-      });
-    });
+    this.subscriptions.push(
+      this.stateChange.explode.subscribe(() => {
+        this.dialog.open(GameOverComponent, {
+          hasBackdrop: false,
+          data: { victory: false },
+        });
+      })
+    );
 
-    this.stateChange.retry.subscribe(() => {
-      this.grid = this.grid.splice(0, this.grid.length);
-      this.grid = this.generator.generate(this.width, this.height, this.mines);
-      this.correct = 0;
-    });
+    this.subscriptions.push(
+      this.stateChange.retry.subscribe(() => {
+        this.grid = this.grid.splice(0, this.grid.length);
+        this.grid = this.generator.generate(
+          this.width,
+          this.height,
+          this.mines
+        );
+        this.correct = 0;
+      })
+    );
   }
 
   ngOnInit(): void {
     this.grid = this.generator.generate(this.width, this.height, this.mines);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 
   @Input() width!: number;
