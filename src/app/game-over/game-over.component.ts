@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { StateChangeService } from '../state-change.service';
+import { StateChangeService } from '../services/state-change.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({

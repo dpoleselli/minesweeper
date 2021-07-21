@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GameOverComponent } from '../game-over/game-over.component';
-import { MineGeneratorService } from '../mine-generator.service';
-import { StateChangeService } from '../state-change.service';
+import { MineGeneratorService } from '../services/mine-generator.service';
+import { StateChangeService } from '../services/state-change.service';
 
 @Component({
   selector: 'app-game-board',

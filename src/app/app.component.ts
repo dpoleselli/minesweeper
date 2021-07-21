@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StateChangeService } from './state-change.service';
+import { StateChangeService } from './services/state-change.service';
 
 @Component({
   selector: 'app-root',
