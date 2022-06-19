@@ -2,7 +2,7 @@
 
 My first Angular project
 
-URL: [virus-sweeper.herokuapp.com](https://virus-sweeper.herokuapp.com/)
+URL: [virus-sweeper.poleselli.com](http://virus-sweeper.poleselli.com/)
 
 ## Background
 
